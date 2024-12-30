@@ -1,14 +1,14 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "*.py",
-            "use": "@vercel/python"
-        }
-    ],
-    "functions": {
-        "limits": {
-            "maxLambdaSize": "30mb"
-        }
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main.py"
+    }
+  ]
 }
