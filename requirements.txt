@@ -7,3 +7,5 @@ python-dotenv
 fastapi
 uvicorn
 gunicorn
+pypdf
+geopy

@@ -2,11 +2,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from example1 import chain
+from example1 import chatbot
 
 class QueryInput(BaseModel):
     question:str
-    stream:bool = False
+    # stream:bool = False
 
 app = FastAPI()
 
@@ -21,11 +21,7 @@ app.add_middleware(
 @app.post("/ask")
 def handle_question(input: QueryInput):
     try:
-        if input.stream == True:
-            response = chain.stream({"question":input.question})
-            return StreamingResponse(response)
-        else:
-            response = chain.invoke({"question":input.question})
-            return JSONResponse(content={"response":response})
+        response = chatbot(input.question)
+        return JSONResponse(content={"response":response})
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
